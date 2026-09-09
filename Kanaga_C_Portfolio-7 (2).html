@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanaga C | Student Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+    :root{
+      --purple:#7c3aed;--purple-dark:#4c1d95;--violet:#a855f7;
+      --text:#21152f;--muted:#6b6075;--white:rgba(255,255,255,.78)
+    }
+    body{
+      font-family:"Inter",sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;
+      background:radial-gradient(circle at 10% 10%,#ddd6fe 0,transparent 28%),
+                 radial-gradient(circle at 90% 20%,#e9d5ff 0,transparent 30%),
+                 linear-gradient(135deg,#f8f1ff,#eee3ff,#faf7ff)
+    }
+    nav{
+      position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(92%,1050px);
+      z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:15px 22px;
+      border:1px solid rgba(255,255,255,.75);background:rgba(255,255,255,.62);
+      backdrop-filter:blur(18px);border-radius:18px;box-shadow:0 12px 35px rgba(76,29,149,.10)
+    }
+    .logo{font-size:21px;font-weight:800;color:var(--purple-dark);letter-spacing:1px}
+    nav ul{display:flex;list-style:none;gap:26px}
+    nav a{text-decoration:none;color:#493957;font-size:14px;font-weight:600;transition:.3s}
+    nav a:hover{color:var(--purple)}
+    section{width:min(1100px,92%);margin:auto;padding:110px 0}
+    .section-title{text-align:center;margin-bottom:55px}
+    .section-title span{color:var(--purple);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+    .section-title h2{font-family:"Playfair Display",serif;font-size:clamp(32px,5vw,48px);margin-top:8px;color:var(--purple-dark)}
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding-top:130px;position:relative}
+    .hero-content{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:70px}
+    .small-label{color:var(--purple);font-weight:800;letter-spacing:3px;font-size:13px;text-transform:uppercase;margin-bottom:16px}
+    .hero h1{font-family:"Playfair Display",serif;font-size:clamp(54px,8vw,92px);line-height:.95;color:var(--purple-dark);margin-bottom:20px}
+    .hero h1 em{color:var(--violet);font-style:normal}
+    .hero h3{font-size:22px;margin-bottom:18px;color:#4c3a59}
+    .hero p{color:var(--muted);max-width:610px;line-height:1.8;font-size:16px;margin-bottom:30px}
+    .buttons{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{text-decoration:none;padding:14px 23px;border-radius:12px;font-weight:700;font-size:14px;transition:.3s;display:inline-block}
+    .btn-primary{color:white;background:linear-gradient(135deg,#7c3aed,#a855f7);box-shadow:0 10px 25px rgba(124,58,237,.25)}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(124,58,237,.32)}
+    .btn-outline{color:var(--purple-dark);border:1px solid rgba(124,58,237,.3);background:rgba(255,255,255,.5)}
+    .btn-outline:hover{background:white;transform:translateY(-3px)}
+    .hero-visual{display:flex;justify-content:center}
+    .initial-card{
+      width:290px;height:340px;border-radius:45% 45% 25px 25px;
+      background:linear-gradient(145deg,#c084fc,#7c3aed);
+      box-shadow:25px 25px 0 rgba(124,58,237,.10),0 30px 70px rgba(76,29,149,.25);
+      display:flex;align-items:center;justify-content:center;position:relative;transform:rotate(3deg)
+    }
+    .initial-card:before{content:"";position:absolute;inset:15px;border:1px solid rgba(255,255,255,.35);border-radius:inherit}
+    .initials{color:white;font-family:"Playfair Display",serif;font-size:105px;font-weight:700;transform:rotate(-3deg);text-shadow:0 8px 25px rgba(0,0,0,.12)}
+    .floating{position:absolute;padding:11px 16px;border-radius:14px;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);box-shadow:0 15px 30px rgba(76,29,149,.12);color:var(--purple-dark);font-weight:700;font-size:12px}
+    .float-one{top:20px;right:-30px}.float-two{bottom:30px;left:-35px}
+    .glass{background:var(--white);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(16px);border-radius:25px;padding:40px;box-shadow:0 20px 50px rgba(76,29,149,.08)}
+    .about-text{text-align:center;max-width:800px;margin:auto;color:var(--muted);line-height:1.9;font-size:16px}
+    .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .skill{padding:30px 20px;text-align:center;background:rgba(255,255,255,.68);border-radius:20px;border:1px solid rgba(255,255,255,.9);box-shadow:0 12px 30px rgba(76,29,149,.07);transition:.35s}
+    .skill:hover{transform:translateY(-8px);background:white;box-shadow:0 20px 40px rgba(76,29,149,.13)}
+    .skill-icon{width:55px;height:55px;margin:0 auto 15px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:#ede9fe;color:var(--purple);font-size:23px;font-weight:800}
+    .skill h3{font-size:16px;color:var(--purple-dark)}
+    .project-card{background:linear-gradient(135deg,rgba(255,255,255,.82),rgba(245,236,255,.8));border:1px solid rgba(255,255,255,.9);border-radius:28px;padding:45px;box-shadow:0 25px 60px rgba(76,29,149,.10);position:relative;overflow:hidden}
+    .project-card:after{content:"AI";position:absolute;right:-15px;top:-45px;font-size:170px;font-weight:900;color:rgba(124,58,237,.055)}
+    .project-number{color:var(--violet);font-weight:800;letter-spacing:2px;font-size:13px}
+    .project-card h3{font-family:"Playfair Display",serif;color:var(--purple-dark);font-size:clamp(25px,4vw,38px);max-width:750px;margin:12px 0 18px;line-height:1.2}
+    .project-card p{color:var(--muted);line-height:1.8;max-width:800px;margin-bottom:12px}
+    .tag{display:inline-block;margin-top:20px;margin-right:8px;padding:8px 13px;border-radius:50px;background:#ede9fe;color:var(--purple-dark);font-size:12px;font-weight:700}
+    .education{display:grid;gap:20px}
+    .edu-card{display:flex;align-items:center;gap:25px;padding:28px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:20px;transition:.3s}
+    .edu-card:hover{transform:translateX(7px);box-shadow:0 15px 35px rgba(76,29,149,.09)}
+    .edu-icon{min-width:60px;height:60px;border-radius:17px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;display:flex;align-items:center;justify-content:center;font-size:24px}
+    .edu-card h3{color:var(--purple-dark);margin-bottom:7px}.edu-card p{color:var(--muted);line-height:1.6;font-size:14px}
+    .marks{margin-left:auto;text-align:right;font-weight:800;color:var(--purple)}
+    .objective{text-align:center;background:linear-gradient(135deg,#6d28d9,#a855f7);color:white;border-radius:30px;padding:55px 35px;box-shadow:0 25px 55px rgba(109,40,217,.25)}
+    .objective h2{font-family:"Playfair Display",serif;font-size:38px;margin-bottom:18px}
+    .objective p{max-width:760px;margin:auto;line-height:1.8;color:rgba(255,255,255,.88)}
+    .contact-box{text-align:center}.contact-box p{color:var(--muted);margin:10px auto 25px}
+    footer{text-align:center;padding:30px;color:#75677f;font-size:13px}
+    .reveal{opacity:0;transform:translateY(30px);transition:.8s ease}.reveal.show{opacity:1;transform:translateY(0)}
+    @media(max-width:800px){
+      nav{top:10px}nav ul{display:none}.hero-content{grid-template-columns:1fr;text-align:center;gap:50px}
+      .hero p{margin-left:auto;margin-right:auto}.buttons{justify-content:center}.skills-grid{grid-template-columns:repeat(2,1fr)}
+      .hero-visual{order:-1}.initial-card{width:230px;height:270px}.initials{font-size:80px}
+      .float-one{right:-5px}.float-two{left:-5px}.marks{margin-left:0;text-align:left;margin-top:5px}
+      .edu-card{align-items:flex-start}section{padding:80px 0}
+    }
+    @media(max-width:500px){
+      .skills-grid{grid-template-columns:1fr 1fr}.glass,.project-card{padding:28px 22px}.edu-card{flex-direction:column}.hero h1{font-size:55px}
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">KC.</div>
+    <ul>
+      <li><a href="#home">Home</a></li><li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li><li><a href="#project">Project</a></li>
+      <li><a href="#education">Education</a></li><li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="reveal">
+        <div class="small-label">Welcome to my portfolio</div>
+        <h1>Kanaga <em>C</em></h1>
+        <h3>Student & Aspiring Technology Professional</h3>
+        <p>Passionate about programming, technology and creating practical solutions through continuous learning and innovation.</p>
+        <div class="buttons">
+          <a href="#project" class="btn btn-primary">View My Project</a>
+          <a href="#contact" class="btn btn-outline">Let's Connect</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="initial-card">
+          <div class="initials">KC</div>
+          <div class="floating float-one">💜 Creative Mind</div>
+          <div class="floating float-two">💻 Tech Learner</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-title reveal"><span>Who I Am</span><h2>About Me</h2></div>
+    <div class="glass reveal">
+      <p class="about-text">
+        I am Kanaga C, a passionate and motivated student with an interest in technology and software development.
+        I enjoy learning programming languages, exploring emerging technologies, and building practical solutions
+        that can address real-world challenges. I am continuously developing my technical and problem-solving skills
+        while preparing myself for future opportunities in the technology field.
+      </p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-title reveal"><span>My Expertise</span><h2>Technical Skills</h2></div>
+    <div class="skills-grid">
+      <div class="skill reveal"><div class="skill-icon">Py</div><h3>Python</h3></div>
+      <div class="skill reveal"><div class="skill-icon">J</div><h3>Java</h3></div>
+      <div class="skill reveal"><div class="skill-icon">&lt;/&gt;</div><h3>HTML</h3></div>
+      <div class="skill reveal"><div class="skill-icon">JS</div><h3>JavaScript</h3></div>
+    </div>
+  </section>
+
+  <section id="project">
+    <div class="section-title reveal"><span>Featured Work</span><h2>My Project</h2></div>
+    <div class="project-card reveal">
+      <div class="project-number">01 / MACHINE LEARNING</div>
+      <h3>Emotion-Aware Machine Learning Based Detection of Human Stress Levels</h3>
+      <p>A machine-learning-based project focused on identifying human stress levels by analyzing emotional and behavioral patterns.</p>
+      <p>The system explores how AI and machine learning can be applied to understand human emotions and provide an intelligent approach to stress-level detection.</p>
+      <span class="tag">Machine Learning</span>
+      <span class="tag">Artificial Intelligence</span>
+      <span class="tag">Emotion Analysis</span>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-title reveal"><span>Academic Journey</span><h2>Education</h2></div>
+    <div class="education">
+      <div class="edu-card reveal">
+        <div class="edu-icon">🎓</div>
+        <div><h3>Higher Secondary Education</h3><p>Government Higher Secondary School, Athanur<br>12th Standard</p></div>
+        <div class="marks">407 Marks<br><small>68%</small></div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">📚</div>
+        <div><h3>Secondary Education</h3><p>Government High School, Athanur<br>10th Standard</p></div>
+        <div class="marks">395 Marks<br><small>79%</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="objective reveal">
+      <h2>My Career Objective</h2>
+      <p>To develop strong technical expertise, gain practical industry experience, and contribute to meaningful technology-driven projects while continuously learning and growing as a professional.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-title reveal">
+      <span>Get In Touch</span>
+      <h2>Let's Connect</h2>
+    </div>
+
+    <div class="glass contact-box reveal">
+
+      <h3>Kanaga C</h3>
+
+      <p>
+        Student • Programming • Technology • Software Development
+      </p>
+
+      <p>
+        📧 <a href="mailto:kanagacs2007@gmail.com" style="color:#4c1d95;font-weight:700;text-decoration:none;">
+          kanagacs2007@gmail.com
+        </a>
+        <br>
+        📱 <a href="tel:8595688917" style="color:#4c1d95;font-weight:700;text-decoration:none;">
+          8595688917
+        </a>
+      </p>
+
+      <div class="buttons" style="justify-content:center;">
+        <a href="mailto:kanagacs2007@gmail.com" class="btn btn-primary">
+          Email Me
+        </a>
+        <a href="tel:8595688917" class="btn btn-outline">
+          Call Me
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>© 2026 Kanaga C. Designed with 💜</footer>
+
+  <script>
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("show");
+      });
+    }, {threshold:0.12});
+    reveals.forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
